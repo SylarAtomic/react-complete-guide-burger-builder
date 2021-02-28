@@ -81,6 +81,16 @@ class ContactData extends Component {
       });
   };
 
+  inputChangedHanlder = (event, inputIdentifier) => {
+    const updatedOrderForm = {
+      ...this.state.orderForm
+    }
+    const updatedFormElement = {...updatedOrderForm[inputIdentifier]};
+    updatedFormElement.value = event.target.value;
+    updatedOrderForm[inputIdentifier] = updatedFormElement;
+    this.setState({orderForm: updatedOrderForm});
+  }
+
   render() {
 
     const formElementsArray = [];
@@ -97,7 +107,8 @@ class ContactData extends Component {
         key={formElement.id}
         elementType={formElement.config.elementType}
         elementConfig={formElement.config.elementConfig}
-        value={formElement.config.value}/>))}
+        value={formElement.config.value}
+        changed={(event, ) => this.inputChangedHanlder(event, formElement.id)}/>))}
         <Input inputType="input" type="email" name="email" placeholder="Your email" />
         <Input inputType="input" type="text" name="street" placeholder="Street" />
         <Input inputType="input" type="text" name="postal" placeholder="Postal" />
